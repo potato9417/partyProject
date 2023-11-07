@@ -16,6 +16,12 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}	
+	
+	// 자체 로깅 시스템 제거(logback) => log4j2 대체
+	all {
+		exclude module: 'spring-boot-starter-logging'
+	}
+	
 }
 
 repositories {
@@ -41,6 +47,35 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
 	testImplementation 'org.springframework.security:spring-security-test'
+	
+	// log4j2
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	 // jQuery
+    implementation 'org.webjars:jquery:3.7.1'
+    
+    // jQueryUI
+    implementation 'org.webjars:jquery-ui:1.12.1'
+    
+    // bootstrap
+    implementation 'org.webjars:bootstrap:5.3.1'
+    
+    // webjars javascript 자동 버전 관리
+    implementation group: 'org.webjars', name: 'webjars-locator-core', version: '0.46'
+    
+    // log4jdbc
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+    
+    // thymeleaf layout dialect
+	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+	
+	// spring security taglib 지원성 추가
+	implementation 'org.springframework.security:spring-security-taglibs'
+	
+	// spring session jdbc
+	implementation 'org.springframework.session:spring-session-jdbc' // 추가
+	
 }
 
 tasks.named('test') {
