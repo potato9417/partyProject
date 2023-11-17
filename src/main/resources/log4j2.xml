@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+	<Properties>
+		<Property name="LOG_FORMAT">%-5p : [%t] %c{1}:%L --- %msg : %d{YYYY-MM-dd HH:mm:ss}%n</Property>
+		<Property name="lOGS_PATH">C:\heejin\log\party</Property>
+	</Properties>
+
+	<Appenders>
+	
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_FORMAT}" />
+		</Console>
+		
+		<RollingFile name="File" 
+					filename="${lOGS_PATH}/lab.log"
+            		filepattern="${lOGS_PATH}/$${date:yyyy-MM-dd}/lab_%d{YYYY-MM-dd_HH-mm-ss}_%i.log">
+            <PatternLayout pattern="%-5p : [%t] %c{1}:%L --- %msg : %d{YYYY-MM-dd HH:mm:ss}%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1 GB" /> <!-- 한계량 -->   
+             	<TimeBasedTriggeringPolicy interval="1" /> <!-- 1 시간 -->
+            </Policies>
+            <DefaultRolloverStrategy max="100" />
+
+        </RollingFile>		
+
+	</Appenders>
+
+	<Loggers>
+	
+		<Logger name="com.javateam.memberProject" additivity="false">
+			<Level value="INFO"></Level>
+			<AppenderRef ref="Console"/>
+		</Logger>
+	
+		<Logger name="org.springframework">
+			<Level value="INFO" />
+      		<AppenderRef ref="Console"/>
+    	</Logger>
+	
+		<!-- log4jdbc -->
+		<Logger name="jdbc.sqltiming" additivity="false">
+			<Level value="WARN" />
+			<AppenderRef ref="Console"/> 
+		</Logger>
+	
+		<Logger name="jdbc.sqlonly" additivity="false"> 
+			<Level value="INFO"/> 
+			<AppenderRef ref="Console"/> 
+		</Logger>
+	
+		<Logger name="jdbc.audit" additivity="false"> 
+			<Level value="warn"/>  
+			<AppenderRef ref="Console"/> 
+		</Logger> 
+	
+		<Logger name="jdbc.resultset" additivity="false">
+			<Level value="warn" />
+			<AppenderRef ref="Console"/> 
+		</Logger>
+	
+		<Logger name="jdbc.resultsettable" additivity="false"> 
+			<Level value="INFO"/>  
+			<AppenderRef ref="Console"/> 
+		</Logger>
+		<!--// log4jdbc -->
+	
+		<Root level="INFO">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="File" />
+		</Root>
+		
+	</Loggers>
+</Configuration>
